@@ -4,21 +4,30 @@ import { Component, useEffect } from 'react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Table from './components/Table'
+
 export default class App extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.state = ({
       //default table values
       rows: 0,
       columns: 1,
       color: "black",
-      isFilled: false
-    }
+      isFilled: false,
+      mouseDown: false
+    });
+    this.addRows = this.addRows.bind(this)
+    this.addColumns =  this.addColumns.bind(this)
+    this.deleteRow =  this.deleteRow.bind(this)
+    this.deleteColumn = this.deleteColumn.bind(this)
+    this.changeColor = this.changeColor.bind(this)
+    this.fillCells = this.fillCells.bind(this)
+    
   }
 
   //Functions for buttons
   addRows = () => {
-  console.log(this.color)
+    console.log(this.color)
     this.setState(prev => ({ rows: prev.rows + 1 }))
 
   }
@@ -28,37 +37,34 @@ export default class App extends React.Component {
   }
 
   deleteRow = () => {
-    
-      this.setState(prev => ({ rows: prev.rows - 1 }))
-    
+
+    this.setState(prev => ({ rows: prev.rows - 1 }))
+
   }
 
   deleteColumn = () => {
-   
-      this.setState(prev => ({ columns: prev.columns - 1 }))
-    
+
+    this.setState(prev => ({ columns: prev.columns - 1 }))
+
   }
 
   changeColor = (e) => {
     console.log(this.columns)
     let modifiedColor = e.target.value
     console.log(e.target.value)
-    this.setState({color: modifiedColor})
-    
+    this.setState({ color: modifiedColor })
+
   }
+
   fillCells = () => {
-    this.setState({isFilled: true})
-    
+    this.setState({ isFilled: true })
   }
 
-
-
-  
   
 
   render() {
     return (
-      <div id="body" onMouseDown={this.changeCell}>
+      <div id="body" onMouseDown={this.mouseDrag} onMouseUp={this.mouseDrag}>
         <div id="all-btns">
           <button onClick={this.addRows} id="rowBtn" className="btns"> Add Row</button>
           <button onClick={this.addColumns} id="colBtn" className="btns">Add Column</button>
@@ -74,7 +80,7 @@ export default class App extends React.Component {
         </div>
 
         <div id="container" draggable="false">
-        
+
           <Table className="box" state={this.state}>
 
           </Table>
