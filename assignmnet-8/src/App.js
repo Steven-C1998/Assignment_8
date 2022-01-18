@@ -16,13 +16,6 @@ export default class App extends React.Component {
       isFilled: false,
       mouseDown: false
     });
-    this.addRows = this.addRows.bind(this)
-    this.addColumns =  this.addColumns.bind(this)
-    this.deleteRow =  this.deleteRow.bind(this)
-    this.deleteColumn = this.deleteColumn.bind(this)
-    this.changeColor = this.changeColor.bind(this)
-    this.fillCells = this.fillCells.bind(this)
-    
   }
 
   //Functions for buttons
